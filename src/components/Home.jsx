@@ -19,6 +19,8 @@ import {
 const styles = StyleSheet.create({
   page: {
     flexDirection: "column",
+    position: "relative",
+    minHeight: "100vh",
   },
   section: {
     marginBottom: 10,
@@ -707,7 +709,7 @@ const MyDocument = ({ formData, picture }) => (
         <Text
           style={[
             styles.text,
-            { marginBottom: 1, fontSize: 10, fontWeight: "bold" },
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
           ]}
         >
           {formData.certificates}
