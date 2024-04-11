@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import logo from "../assets/img/LOGOPHILORE.png";
 import letter from "../assets/img/letterhead.png";
 import footer from "../assets/img/footer.jpg";
-import DatePicker from "react-date-picker";
+import design from "../assets/img/design.jpg";
+import { CiCalendarDate } from "react-icons/ci";
 
 import {
   PDFDownloadLink,
@@ -12,14 +13,7 @@ import {
   View,
   StyleSheet,
   Image,
-  Font,
 } from "@react-pdf/renderer";
-
-// Define your custom font
-Font.register({
-  family: "Roboto",
-  src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf",
-});
 
 // Define your styles
 const styles = StyleSheet.create({
@@ -29,19 +23,17 @@ const styles = StyleSheet.create({
   section: {
     marginBottom: 10,
     padding: 10,
-    backgroundColor: "#ffffff", // Background color for the section
   },
   text: {
-    fontSize: 14,
-    color: "black",
-    marginBottom: 5, // Apply custom font
+    fontSize: 9,
+    marginBottom: 2, // Apply custom font
   },
   boldText: {
     fontWeight: "bold", // Make all text bold
   },
   label: {
     color: "black", // Set label text color to black
-    marginBottom: 5,
+    marginBottom: 2,
     fontWeight: "bold", // Make the label text bold
   },
   pictureContainer: {
@@ -50,19 +42,33 @@ const styles = StyleSheet.create({
     right: 20,
   },
   picture: {
-    width: 100,
+    width: 90,
     height: 100,
   },
   logo: {
-    width: 300,
+    width: 305,
     height: 151,
-    paddingBottom: 45, // Add padding to the bottom of the logo
+    paddingBottom: 50, // Add padding to the bottom of the logo
   },
   sectionHeader: {
-    marginBottom: 10, // Add margin-bottom for section headers
-    marginTop: 20, // Add margin-top for section headers
+    marginBottom: 5, // Add margin-bottom for section headers
+    marginTop: 10, // Add margin-top for section headers
     fontSize: 24, // Adjust font size for section headers
     fontWeight: "bold", // Make the section headers bold
+  },
+  footerImage: {
+    position: "absolute",
+    bottom: -195, // Adjusted to place the footer at the bottom
+    textAlign: "center",
+    width: "105%",
+    height: "auto", // Ensure aspect ratio is maintained
+  },
+  designImage: {
+    position: "absolute",
+    right: -5,
+    width: "50%",
+    height: "auto",
+    zIndex: -1, // Set a lower z-index value to send it to the back
   },
 });
 
@@ -98,9 +104,17 @@ const Home = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    let transformedValue = value;
+
+    // If the input is "Awards" or "Certificates" and the last character typed is a "-", replace it with a bullet point
+    if ((name === "awards" || name === "certificates") && value.endsWith("-")) {
+      transformedValue = value.replace(/-$/, "• ");
+    }
+
+    // Update the form data with the transformed value
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: transformedValue,
     }));
   };
 
@@ -128,8 +142,8 @@ const Home = () => {
           <div>
             <img src={logo} alt="Logo" />
           </div>
-          <div className="grid grid-cols-1 font-bold my-10 gap-2 mt-10 text-[20px] p-2 items-start">
-            <label htmlFor="fullName" className={`${styles.label}`}>
+          <div className="grid grid-cols-1 font-bold my-10 gap-2 mt-10 rounded-lg  text-[20px] p-2 items-start">
+            <label htmlFor="fullName" className={`${styles.label} `}>
               Full Name
             </label>
             <input
@@ -164,7 +178,7 @@ const Home = () => {
             />
             <label htmlFor="objective" className={`${styles.label}`}>
               Objective{" "}
-              <span className="font-thin ml-4 " font>
+              <span className="font-thin ml-4 " font="true">
                 (Optional)
               </span>
             </label>
@@ -179,18 +193,22 @@ const Home = () => {
           </div>
           <div className="flex flex-col font-bold my-10 gap-2 mt-10 text-[20px] p-2">
             <h1 className="text-[30px]">PERSONAL DETAILS</h1>
-            <label htmlFor="dateOfBirth" className={`${styles.label}`}>
+            <label
+              htmlFor="dateOfBirth"
+              className={`${styles.label} flex items-center`}
+            >
               Date Of Birth
             </label>
-            <input
-              type="text"
-              id="dateOfBirth"
-              name="dateOfBirth" // Adjusted to match the id
-              value={formData.dateOfBirth}
-              onChange={handleInputChange}
-              required
-            />
-
+            <div className="flex items-center">
+              <input
+                type="date"
+                id="dateOfBirth"
+                name="dateOfBirth"
+                value={formData.dateOfBirth}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
             <label htmlFor="nationality" className={`${styles.label}`}>
               Nationality
             </label>
@@ -304,17 +322,22 @@ const Home = () => {
               onChange={handleInputChange}
               required
             />
-            <label htmlFor="graduationDate" className={`${styles.label}`}>
+            <label
+              htmlFor="graduationDate"
+              className={`${styles.label} flex items-center`}
+            >
               Graduation Date
             </label>
-            <input
-              type="text"
-              id="graduationDate"
-              name="graduationDate" // Adjusted to match the id
-              value={formData.graduationDate}
-              onChange={handleInputChange}
-              required
-            />
+            <div className="flex items-center">
+              <input
+                type="date"
+                id="graduationDate"
+                name="graduationDate"
+                value={formData.graduationDate}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
           </div>
           <div className="flex flex-col font-bold my-10 gap-2 mt-10 text-[20px] p-2">
             <h1 className="text-[30px]">EXPERIENCE SUMMARY</h1>
@@ -331,7 +354,7 @@ const Home = () => {
             />
             <label htmlFor="bedCapacity" className={`${styles.label}`}>
               Bed Capacity{" "}
-              <span className="font-thin ml-4 " font>
+              <span className="font-thin ml-4 " font="true">
                 (Applicable for Nurses only)
               </span>
             </label>
@@ -345,7 +368,7 @@ const Home = () => {
             />
             <label htmlFor="areaOfExposure" className={`${styles.label}`}>
               Area of Exposure
-              <span className="font-thin ml-4 " font>
+              <span className="font-thin ml-4 " font="true">
                 (Applicable for Nurses only)
               </span>
             </label>
@@ -391,35 +414,37 @@ const Home = () => {
               required
             />
           </div>
-          <div className="flex flex-col font-bold my-10 gap-2 mt-10 text-[20px] p-2">
+          <div className="grid grid-cols-1 font-bold my-10 gap-2 mt-10 rounded-lg text-[20px] p-2 items-start">
             <h1 className="text-[30px]">SKILLS</h1>
             <label htmlFor="awards" className={`${styles.label}`}>
               Awards
             </label>
-            <input
-              type="text"
+            <textarea
               id="awards"
-              name="awards" // Adjusted to match the id
+              name="awards"
               value={formData.awards}
               onChange={handleInputChange}
+              className="resize-none"
               required
+              rows={3} // Adjust the number of rows as needed
             />
             <label htmlFor="certificates" className={`${styles.label}`}>
               Certificates
             </label>
-            <input
-              type="text"
+            <textarea
               id="certificates"
-              name="certificates" // Adjusted to match the id
+              name="certificates"
               value={formData.certificates}
               onChange={handleInputChange}
+              className="resize-none"
               required
+              rows={3} // Adjust the number of rows as needed
             />
           </div>
-          <div className="flex flex-col my-10 text-[20px] ml-2 font-bold">
+          <div className="flex flex-col my-10 text-[20px] ml-2  font-bold">
             {/* Add a new input field for uploading the picture */}
             <label htmlFor="picture" className={`${styles.label}`}>
-              Picture
+              Upload your 1x1 picture here
             </label>
             <input
               type="file"
@@ -455,92 +480,238 @@ const MyDocument = ({ formData, picture }) => (
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
         <Image src={letter} style={styles.logo} />
+        <Image src={footer} style={styles.footerImage} />
+        <Image src={design} style={styles.designImage} />
+
         {/* All text elements with bold styling and proper alignment */}
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.fullName}
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.phoneNumber}
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.emailAddress}
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.objective}
         </Text>
-        <Text style={[styles.text, styles.boldText, styles.sectionHeader]}>
+        <Text
+          style={[
+            styles.text,
+            styles.sectionHeader,
+            { fontSize: 14, fontWeight: "bold" },
+          ]}
+        >
           PERSONAL DETAILS
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.dateOfBirth}
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.nationality}
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.gender}
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.maritalStatus}
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.religion}
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.height}
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.weight}
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.permanentAddress}
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.languageSkills}
         </Text>
-        <Text style={[styles.text, styles.boldText, styles.sectionHeader]}>
+        <Text
+          style={[
+            styles.text,
+            styles.sectionHeader,
+            { fontSize: 14, fontWeight: "bold" },
+          ]}
+        >
           EDUCATIONAL DETAILS
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.institutionAttended}
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.degreesEarned}
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.graduationDate}
         </Text>
-        <Text style={[styles.text, styles.boldText, styles.sectionHeader]}>
+        <Text
+          style={[
+            styles.text,
+            styles.sectionHeader,
+            { fontSize: 14, fontWeight: "bold" },
+          ]}
+        >
           EXPERIENCE SUMMARY
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.employerName}
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.bedCapacity}
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.areaOfExposure}
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.position}
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.duration}
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.responsibilities}
         </Text>
-        <Text style={[styles.text, styles.boldText, styles.sectionHeader]}>
+        <Text
+          style={[
+            styles.text,
+            styles.sectionHeader,
+            { fontSize: 14, fontWeight: "bold" },
+          ]}
+        >
           SKILLS
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.awards}
         </Text>
-        <Text style={[styles.text, styles.boldText, { marginBottom: 10 }]}>
+        <Text
+          style={[
+            styles.text,
+            { marginBottom: 1, fontSize: 10, fontWeight: "bold" },
+          ]}
+        >
           {formData.certificates}
         </Text>
-
         {/* Add the picture container */}
         <View style={styles.pictureContainer}>
           {picture && (
