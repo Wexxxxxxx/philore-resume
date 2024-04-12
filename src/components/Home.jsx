@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     minHeight: "100vh",
   },
   section: {
-    marginBottom: 10,
+    marginBottom: 5,
     padding: 10,
   },
   text: {
@@ -44,13 +44,16 @@ const styles = StyleSheet.create({
     right: 20,
   },
   picture: {
+    position: "absolute",
     width: 90,
     height: 100,
+    bottom: -130,
+    right: 50,
   },
   logo: {
     width: 305,
     height: 151,
-    paddingBottom: 50, // Add padding to the bottom of the logo
+    paddingBottom: 100, // Add padding to the bottom of the logo
   },
   sectionHeader: {
     marginBottom: 5, // Add margin-bottom for section headers
@@ -60,7 +63,8 @@ const styles = StyleSheet.create({
   },
   footerImage: {
     position: "absolute",
-    bottom: -195, // Adjusted to place the footer at the bottom
+    bottom: -175, // Adjusted to place the footer at the bottom
+    left: 5,
     textAlign: "center",
     width: "105%",
     height: "auto", // Ensure aspect ratio is maintained
@@ -92,7 +96,7 @@ const Home = () => {
     institutionAttend: "",
     degreesEarned: "",
     graduationDate: "",
-    employerName: "",
+    CompanyName: "",
     bedCapacity: "",
     areaOfExposure: "",
     position: "",
@@ -343,14 +347,14 @@ const Home = () => {
           </div>
           <div className="flex flex-col font-bold my-10 gap-2 mt-10 text-[20px] p-2">
             <h1 className="text-[30px]">EXPERIENCE SUMMARY</h1>
-            <label htmlFor="employerName" className={`${styles.label}`}>
-              Employer Name
+            <label htmlFor="CompanyName" className={`${styles.label}`}>
+              Company Name
             </label>
             <input
               type="text"
-              id="employerName"
-              name="employerName" // Adjusted to match the id
-              value={formData.employerName}
+              id="CompanyName"
+              name="CompanyName" // Adjusted to match the id
+              value={formData.CompanyName}
               onChange={handleInputChange}
               required
             />
@@ -489,7 +493,7 @@ const MyDocument = ({ formData, picture }) => (
         <Text
           style={[
             styles.text,
-            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+            { marginBottom: 2, fontSize: 14, fontWeight: "bold" },
           ]}
         >
           {formData.fullName}
@@ -497,7 +501,7 @@ const MyDocument = ({ formData, picture }) => (
         <Text
           style={[
             styles.text,
-            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+            { marginBottom: 2, fontSize: 14, fontWeight: "bold" },
           ]}
         >
           {formData.phoneNumber}
@@ -505,7 +509,7 @@ const MyDocument = ({ formData, picture }) => (
         <Text
           style={[
             styles.text,
-            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+            { marginBottom: 2, fontSize: 14, fontWeight: "bold" },
           ]}
         >
           {formData.emailAddress}
@@ -513,7 +517,7 @@ const MyDocument = ({ formData, picture }) => (
         <Text
           style={[
             styles.text,
-            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+            { marginBottom: 2, fontSize: 14, fontWeight: "bold" },
           ]}
         >
           {formData.objective}
@@ -647,7 +651,7 @@ const MyDocument = ({ formData, picture }) => (
             { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
           ]}
         >
-          {formData.employerName}
+          {formData.CompanyName}
         </Text>
         <Text
           style={[
