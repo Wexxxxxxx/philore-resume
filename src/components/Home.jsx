@@ -23,8 +23,9 @@ const styles = StyleSheet.create({
     minHeight: "100vh",
   },
   section: {
-    marginBottom: 5,
+    marginBottom: 4,
     padding: 10,
+    margin: "0 4px",
   },
   text: {
     fontSize: 8,
@@ -64,8 +65,7 @@ const styles = StyleSheet.create({
   },
   footerImage: {
     position: "absolute",
-    bottom: -167, // Adjusted to place the footer at the bottom
-    textAlign: "center",
+    bottom: -182, // Adjusted to place the footer at the bottom
     width: "105%",
     height: "auto", // Ensure aspect ratio is maintained
   },
@@ -158,11 +158,12 @@ const Home = () => {
             <img src={logo} alt="Logo" />
           </div>
           <div className="grid grid-cols-1 font-bold my-10 gap-2 mt-10 rounded-lg  text-[20px] p-2 items-start">
-            <label htmlFor="fullName" className={`${styles.label} `}>
+            <label htmlFor="fullName" className={`${styles.label}`}>
               Full Name
             </label>
             <input
               type="text"
+              className="uppercase"
               id="fullName"
               name="fullName"
               value={formData.fullName}
@@ -502,7 +503,12 @@ const MyDocument = ({ formData, picture }) => (
         <Text
           style={[
             styles.text,
-            { marginBottom: 2, fontSize: 14, fontWeight: "bold" },
+            {
+              marginBottom: 2,
+              fontSize: 12,
+              fontWeight: "bold",
+              textTransform: "uppercase",
+            },
           ]}
         >
           {formData.fullName}
@@ -510,7 +516,7 @@ const MyDocument = ({ formData, picture }) => (
         <Text
           style={[
             styles.text,
-            { marginBottom: 2, fontSize: 14, fontWeight: "bold" },
+            { marginBottom: 2, fontSize: 12, fontWeight: "bold" },
           ]}
         >
           {formData.phoneNumber}
@@ -518,7 +524,7 @@ const MyDocument = ({ formData, picture }) => (
         <Text
           style={[
             styles.text,
-            { marginBottom: 2, fontSize: 14, fontWeight: "bold" },
+            { marginBottom: 2, fontSize: 12, fontWeight: "bold" },
           ]}
         >
           {formData.emailAddress}
@@ -526,7 +532,7 @@ const MyDocument = ({ formData, picture }) => (
         <Text
           style={[
             styles.text,
-            { marginBottom: 2, fontSize: 14, fontWeight: "bold" },
+            { marginBottom: 2, fontSize: 12, fontWeight: "bold" },
           ]}
         >
           {formData.objective}
@@ -535,7 +541,7 @@ const MyDocument = ({ formData, picture }) => (
           style={[
             styles.text,
             styles.sectionHeader,
-            { fontSize: 14, fontWeight: "bold" },
+            { fontSize: 12, fontWeight: "bold" },
           ]}
         >
           PERSONAL DETAILS
@@ -616,7 +622,7 @@ const MyDocument = ({ formData, picture }) => (
           style={[
             styles.text,
             styles.sectionHeader,
-            { fontSize: 14, fontWeight: "bold" },
+            { fontSize: 12, fontWeight: "bold" },
           ]}
         >
           EDUCATIONAL DETAILS
@@ -649,7 +655,7 @@ const MyDocument = ({ formData, picture }) => (
           style={[
             styles.text,
             styles.sectionHeader,
-            { fontSize: 14, fontWeight: "bold" },
+            { fontSize: 12, fontWeight: "bold" },
           ]}
         >
           EXPERIENCE SUMMARY
@@ -706,7 +712,7 @@ const MyDocument = ({ formData, picture }) => (
           style={[
             styles.text,
             styles.sectionHeader,
-            { fontSize: 14, fontWeight: "bold" },
+            { fontSize: 12, fontWeight: "bold" },
           ]}
         >
           SKILLS
