@@ -85,8 +85,6 @@ const desiredHeight = 40; // Desired height
 // Calculate aspect ratio
 const aspectRatio = originalWidth / originalHeight;
 
-// Calculate corresponding width
-const desiredWidth = aspectRatio * desiredHeight;
 const Home = () => {
   const [formData, setFormData] = useState({
     fullName: "",
