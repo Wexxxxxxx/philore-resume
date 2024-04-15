@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   text: {
-    fontSize: 9,
+    fontSize: 8,
     marginBottom: 2, // Apply custom font
   },
   boldText: {
@@ -40,20 +40,21 @@ const styles = StyleSheet.create({
   },
   pictureContainer: {
     position: "absolute",
-    top: 45,
+    top: 10,
     right: 20,
   },
   picture: {
     position: "absolute",
     width: 90,
     height: 100,
-    bottom: -130,
+    bottom: -170,
     right: 50,
+    objectFit: "cover", // Prevent stretching
   },
   logo: {
-    width: 305,
-    height: 151,
-    paddingBottom: 100, // Add padding to the bottom of the logo
+    width: 350,
+    height: 150,
+    paddingBottom: 70, // Add padding to the bottom of the logo
   },
   sectionHeader: {
     marginBottom: 5, // Add margin-bottom for section headers
@@ -63,8 +64,7 @@ const styles = StyleSheet.create({
   },
   footerImage: {
     position: "absolute",
-    bottom: -175, // Adjusted to place the footer at the bottom
-    left: 5,
+    bottom: -167, // Adjusted to place the footer at the bottom
     textAlign: "center",
     width: "105%",
     height: "auto", // Ensure aspect ratio is maintained
@@ -78,6 +78,15 @@ const styles = StyleSheet.create({
   },
 });
 
+const originalWidth = 350; // Width of the original image
+const originalHeight = 244; // Height of the original image
+const desiredHeight = 40; // Desired height
+
+// Calculate aspect ratio
+const aspectRatio = originalWidth / originalHeight;
+
+// Calculate corresponding width
+const desiredWidth = aspectRatio * desiredHeight;
 const Home = () => {
   const [formData, setFormData] = useState({
     fullName: "",
