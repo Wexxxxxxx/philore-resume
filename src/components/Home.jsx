@@ -23,13 +23,13 @@ const styles = StyleSheet.create({
     minHeight: "100vh",
   },
   section: {
-    marginBottom: 4,
+    marginBottom: 10,
     padding: 10,
-    margin: "0 4px",
+    margin: "0 2px 2px",
   },
   text: {
     fontSize: 8,
-    marginBottom: 2, // Apply custom font
+    marginBottom: 10, // Apply custom font
   },
   boldText: {
     fontWeight: "bold", // Make all text bold
@@ -41,14 +41,14 @@ const styles = StyleSheet.create({
   },
   pictureContainer: {
     position: "absolute",
-    top: 10,
-    right: 20,
+    top: -5,
+    right: 1,
   },
   picture: {
     position: "absolute",
     width: 90,
     height: 100,
-    bottom: -170,
+    bottom: -175,
     right: 50,
     objectFit: "cover", // Prevent stretching
   },
@@ -65,13 +65,16 @@ const styles = StyleSheet.create({
   },
   footerImage: {
     position: "absolute",
-    bottom: -182, // Adjusted to place the footer at the bottom
+    right: -1,
+    bottom: -148, // Adjusted to place the footer at the bottom
     width: "105%",
     height: "auto", // Ensure aspect ratio is maintained
+    zIndex: -1,
   },
   designImage: {
     position: "absolute",
     right: -5,
+    top: -70,
     width: "50%",
     height: "auto",
     zIndex: -1, // Set a lower z-index value to send it to the back
@@ -104,10 +107,9 @@ const Home = () => {
     degreesEarned: "",
     graduationDate: "",
     CompanyName: "",
-    bedCapacity: "",
-    areaOfExposure: "",
+    companyAddress: "",
     position: "",
-    duration: "",
+    lengthService: "",
     responsibilities: "",
     awards: "",
     certificates: "",
@@ -158,6 +160,9 @@ const Home = () => {
           <div className="grid grid-cols-1 font-bold my-10 gap-2 mt-10 rounded-lg  text-[20px] p-2 items-start">
             <label htmlFor="fullName" className={`${styles.label}`}>
               Full Name
+              <span className="font-thin ml-4 " font="true">
+                (first name, Mi, surename)
+              </span>
             </label>
             <input
               type="text"
@@ -366,34 +371,18 @@ const Home = () => {
               onChange={handleInputChange}
               required
             />
-            <label htmlFor="bedCapacity" className={`${styles.label}`}>
-              Bed Capacity{" "}
-              <span className="font-thin ml-4 " font="true">
-                (Applicable for Nurses only)
-              </span>
+            <label htmlFor="companyAddress" className={`${styles.label}`}>
+              Company Address{" "}
             </label>
             <input
               type="text"
-              id="bedCapacity"
-              name="bedCapacity" // Adjusted to match the id
-              value={formData.bedCapacity}
+              id="companyAddress"
+              name="companyAddress" // Adjusted to match the id
+              value={formData.companyAddress}
               onChange={handleInputChange}
               required
             />
-            <label htmlFor="areaOfExposure" className={`${styles.label}`}>
-              Area of Exposure
-              <span className="font-thin ml-4 " font="true">
-                (Applicable for Nurses only)
-              </span>
-            </label>
-            <input
-              type="text"
-              id="areaOfExposure"
-              name="areaOfExposure" // Adjusted to match the id
-              value={formData.areaOfExposure}
-              onChange={handleInputChange}
-              required
-            />
+
             <label htmlFor="position" className={`${styles.label}`}>
               Position
             </label>
@@ -405,14 +394,14 @@ const Home = () => {
               onChange={handleInputChange}
               required
             />
-            <label htmlFor="duration" className={`${styles.label}`}>
-              Duration
+            <label htmlFor="lengthService" className={`${styles.label}`}>
+              Length of Service
             </label>
             <input
               type="text"
-              id="duration"
-              name="duration" // Adjusted to match the id
-              value={formData.duration}
+              id="lengthService"
+              name="lengthService" // Adjusted to match the id
+              value={formData.lengthService}
               onChange={handleInputChange}
               required
             />
@@ -498,6 +487,7 @@ const MyDocument = ({ formData, picture }) => (
         <Image src={design} style={styles.designImage} />
 
         {/* All text elements with bold styling and proper alignment */}
+
         <Text
           style={[
             styles.text,
@@ -506,6 +496,7 @@ const MyDocument = ({ formData, picture }) => (
               fontSize: 12,
               fontWeight: "bold",
               textTransform: "uppercase",
+              marginTop: -40,
             },
           ]}
         >
@@ -522,7 +513,7 @@ const MyDocument = ({ formData, picture }) => (
         <Text
           style={[
             styles.text,
-            { marginBottom: 2, fontSize: 12, fontWeight: "bold" },
+            { marginBottom: 10, fontSize: 12, fontWeight: "bold" },
           ]}
         >
           {formData.emailAddress}
@@ -530,7 +521,14 @@ const MyDocument = ({ formData, picture }) => (
         <Text
           style={[
             styles.text,
-            { marginBottom: 2, fontSize: 12, fontWeight: "bold" },
+            {
+              marginBottom: 10,
+              fontSize: 12,
+              fontWeight: "bold",
+              marginTop: 5,
+              textAlign: "justify", // Add textAlign property for justify alignment
+              marginRight: 18,
+            },
           ]}
         >
           {formData.objective}
@@ -539,7 +537,7 @@ const MyDocument = ({ formData, picture }) => (
           style={[
             styles.text,
             styles.sectionHeader,
-            { fontSize: 12, fontWeight: "bold" },
+            { fontSize: 12, fontWeight: "bold", marginTop: 5 },
           ]}
         >
           PERSONAL DETAILS
@@ -547,9 +545,14 @@ const MyDocument = ({ formData, picture }) => (
         <Text
           style={[
             styles.text,
-            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+            {
+              marginBottom: 2,
+              fontSize: 10,
+              fontWeight: "bold",
+            },
           ]}
         >
+          <Text style={styles.label}>Date of Birth: </Text>
           {formData.dateOfBirth}
         </Text>
         <Text
@@ -558,6 +561,7 @@ const MyDocument = ({ formData, picture }) => (
             { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
           ]}
         >
+          <Text style={styles.label}>Nationality: </Text>
           {formData.nationality}
         </Text>
         <Text
@@ -566,6 +570,7 @@ const MyDocument = ({ formData, picture }) => (
             { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
           ]}
         >
+          <Text style={styles.label}>Gender: </Text>
           {formData.gender}
         </Text>
         <Text
@@ -574,6 +579,7 @@ const MyDocument = ({ formData, picture }) => (
             { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
           ]}
         >
+          <Text style={styles.label}>Marital Status: </Text>
           {formData.maritalStatus}
         </Text>
         <Text
@@ -582,6 +588,7 @@ const MyDocument = ({ formData, picture }) => (
             { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
           ]}
         >
+          <Text style={styles.label}>Religion: </Text>
           {formData.religion}
         </Text>
         <Text
@@ -590,6 +597,7 @@ const MyDocument = ({ formData, picture }) => (
             { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
           ]}
         >
+          <Text style={styles.label}>Height: </Text>
           {formData.height}
         </Text>
         <Text
@@ -598,6 +606,7 @@ const MyDocument = ({ formData, picture }) => (
             { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
           ]}
         >
+          <Text style={styles.label}>Weight: </Text>
           {formData.weight}
         </Text>
         <Text
@@ -606,14 +615,20 @@ const MyDocument = ({ formData, picture }) => (
             { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
           ]}
         >
+          <Text style={styles.label}>Permanent Address: </Text>
           {formData.permanentAddress}
         </Text>
         <Text
           style={[
             styles.text,
-            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+            {
+              fontSize: 10,
+              fontWeight: "bold",
+              marginBottom: 5,
+            },
           ]}
         >
+          <Text style={styles.label}>Language Skills: </Text>
           {formData.languageSkills}
         </Text>
         <Text
@@ -628,9 +643,14 @@ const MyDocument = ({ formData, picture }) => (
         <Text
           style={[
             styles.text,
-            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+            {
+              marginBottom: 2,
+              fontSize: 10,
+              fontWeight: "bold",
+            },
           ]}
         >
+          <Text style={styles.label}>Institution Attended: </Text>
           {formData.institutionAttended}
         </Text>
         <Text
@@ -639,14 +659,16 @@ const MyDocument = ({ formData, picture }) => (
             { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
           ]}
         >
+          <Text style={styles.label}>Degrees Earned: </Text>
           {formData.degreesEarned}
         </Text>
         <Text
           style={[
             styles.text,
-            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+            { marginBottom: 5, fontSize: 10, fontWeight: "bold" },
           ]}
         >
+          <Text style={styles.label}>Graduation Date: </Text>
           {formData.graduationDate}
         </Text>
         <Text
@@ -664,6 +686,7 @@ const MyDocument = ({ formData, picture }) => (
             { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
           ]}
         >
+          <Text style={styles.label}>Company Name: </Text>
           {formData.CompanyName}
         </Text>
         <Text
@@ -672,22 +695,17 @@ const MyDocument = ({ formData, picture }) => (
             { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
           ]}
         >
-          {formData.bedCapacity}
+          <Text style={styles.label}>Company Address: </Text>
+          {formData.companyAddress}
         </Text>
+
         <Text
           style={[
             styles.text,
             { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
           ]}
         >
-          {formData.areaOfExposure}
-        </Text>
-        <Text
-          style={[
-            styles.text,
-            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
-          ]}
-        >
+          <Text style={styles.label}>Position: </Text>
           {formData.position}
         </Text>
         <Text
@@ -696,7 +714,8 @@ const MyDocument = ({ formData, picture }) => (
             { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
           ]}
         >
-          {formData.duration}
+          <Text style={styles.label}>Length of Service: </Text>
+          {formData.lengthService}
         </Text>
         <Text
           style={[
@@ -704,6 +723,7 @@ const MyDocument = ({ formData, picture }) => (
             { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
           ]}
         >
+          <Text style={styles.label}>Responsibilities: </Text>
           {formData.responsibilities}
         </Text>
         <Text
@@ -718,19 +738,53 @@ const MyDocument = ({ formData, picture }) => (
         <Text
           style={[
             styles.text,
-            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold", marginTop: 1 }, // Adjusted marginTop here
           ]}
         >
-          {formData.awards}
+          <Text style={styles.label}>Awards: </Text>
         </Text>
+        {formData.awards &&
+          formData.awards.split("\n").map((award, index) => (
+            <Text
+              key={index}
+              style={[
+                styles.text,
+                {
+                  marginBottom: 2,
+                  fontSize: 10,
+                  fontWeight: "bold",
+                  // Adjusted marginLeft to create indentation
+                },
+              ]}
+            >
+              {award}
+            </Text>
+          ))}
         <Text
           style={[
             styles.text,
-            { marginBottom: 2, fontSize: 10, fontWeight: "bold" },
+            { marginBottom: 2, fontSize: 10, fontWeight: "bold", marginTop: 1 }, // Adjusted marginTop here
           ]}
         >
-          {formData.certificates}
+          <Text style={styles.label}>Certificates: </Text>
         </Text>
+        {formData.certificates &&
+          formData.certificates.split("\n").map((certificate, index) => (
+            <Text
+              key={index}
+              style={[
+                styles.text,
+                {
+                  marginBottom: 2,
+                  fontSize: 10,
+                  fontWeight: "bold",
+                  // Adjusted marginLeft to create indentation
+                },
+              ]}
+            >
+              {certificate}
+            </Text>
+          ))}
         {/* Add the picture container */}
         <View style={styles.pictureContainer}>
           {picture && (
